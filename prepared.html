@@ -1,0 +1,908 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071E2B">
+  <meta name="description" content="An educational project exploring tsunami exposure, vulnerability, warning systems, and preparedness along India's coast.">
+  <title>Coastline / India — Tsunami Risk & Preparedness</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ocean: #071E2B;
+      --ocean-2: #0A2D3A;
+      --teal: #0D6670;
+      --sea-glass: #8DE0D0;
+      --ivory: #F5F2E9;
+      --coral: #FF775D;
+      --ink: #102C38;
+      --muted: #5D7277;
+      --line: #D8E0D8;
+      --display: "Manrope", sans-serif;
+      --body: "DM Sans", sans-serif;
+      --mono: "DM Mono", monospace;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+    body {
+      margin: 0;
+      background: var(--ivory);
+      color: var(--ink);
+      font-family: var(--body);
+      overflow-x: hidden;
+    }
+    a { color: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    :focus-visible { outline: 3px solid var(--coral); outline-offset: 4px; }
+
+    .site-nav {
+      position: absolute;
+      z-index: 10;
+      inset: 0 0 auto;
+      height: 82px;
+      padding: 0 clamp(22px, 6vw, 92px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--ivory);
+      border-bottom: 1px solid #ffffff20;
+      animation: navIn .8s both;
+    }
+    .brand {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      text-decoration: none;
+    }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 35px;
+      height: 35px;
+      border: 1px solid #8de0d066;
+      border-radius: 50%;
+      color: var(--sea-glass);
+    }
+    .brand-mark svg { width: 19px; }
+    .brand-name {
+      font: 700 12px var(--mono);
+      letter-spacing: 1.4px;
+    }
+    .brand-name span {
+      color: #8de0d0a6;
+      padding: 0 5px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: clamp(16px, 3vw, 40px);
+    }
+    .nav-links a {
+      position: relative;
+      text-decoration: none;
+      color: #e1e9e7;
+      font-size: 12px;
+      transition: color .2s;
+    }
+    .nav-links a:not(.nav-cta):after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 100%;
+      bottom: -7px;
+      height: 1px;
+      background: var(--sea-glass);
+      transition: right .25s;
+    }
+    .nav-links a:not(.nav-cta):hover { color: var(--sea-glass); }
+    .nav-links a:not(.nav-cta):hover:after { right: 0; }
+    .nav-links .nav-cta {
+      border: 1px solid #8de0d078;
+      border-radius: 99px;
+      padding: 11px 17px;
+      color: var(--sea-glass);
+      transition: background .25s, color .25s, transform .25s;
+    }
+    .nav-links .nav-cta:hover {
+      background: var(--sea-glass);
+      color: var(--ocean);
+      transform: translateY(-2px);
+    }
+
+    .hero {
+      position: relative;
+      min-height: max(720px, 100svh);
+      display: flex;
+      align-items: center;
+      isolation: isolate;
+      overflow: hidden;
+      background: var(--ocean);
+      color: var(--ivory);
+    }
+    .hero-art {
+      position: absolute;
+      z-index: -3;
+      inset: -1.5%;
+      transform: translate3d(var(--px, 0), var(--py, 0), 0) scale(1.035);
+      transition: transform .25s ease-out;
+    }
+    .hero-video { position:absolute; z-index:-2; inset:0; width:100%; height:100%; object-fit:cover; opacity:.3; pointer-events:none; }
+    .hero-art img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: 43% 50%;
+    }
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero:before {
+      content: "";
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      background:
+        linear-gradient(90deg, #071e2b38 0%, #071e2b39 31%, #071e2bbd 53%, #071e2be8 100%),
+        linear-gradient(0deg, #071e2b 0%, transparent 30%, #071e2b5c 100%);
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      opacity: .12;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
+    }
+
+    .hero-content {
+      width: min(690px, 54vw);
+      margin-left: auto;
+      margin-right: clamp(28px, 9vw, 145px);
+      padding: 116px 0 110px;
+    }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--sea-glass);
+      font: 500 10px var(--mono);
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      animation: riseIn .8s .18s both;
+    }
+    .eyebrow:before {
+      content: "";
+      width: 27px;
+      height: 1px;
+      background: var(--coral);
+    }
+    h1 {
+      margin: 25px 0 19px;
+      max-width: 760px;
+      font: 600 clamp(48px, 6.6vw, 94px)/.98 var(--display);
+      letter-spacing: -.075em;
+    }
+    h1 span { display: block; white-space: nowrap; }
+    h1 .accent { color: var(--sea-glass); font-weight: 500; }
+    .hero-copy {
+      max-width: 480px;
+      margin: 0;
+      color: #d3dfde;
+      font-size: clamp(14px, 1.15vw, 16px);
+      line-height: 1.8;
+      animation: riseIn .9s .4s both;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 20px;
+      margin-top: 31px;
+      animation: riseIn .9s .5s both;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 13px;
+      border-radius: 99px;
+      padding: 14px 20px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      transition: transform .25s, background .25s, color .25s, box-shadow .25s;
+    }
+    .button-primary { background: var(--sea-glass); color: var(--ocean); }
+    .button-primary:hover {
+      transform: translateY(-3px);
+      background: #b7f0e5;
+      box-shadow: 0 12px 32px #8de0d033;
+    }
+    .button-primary .arrow { font-size: 17px; line-height: 10px; }
+    .button-quiet { color: var(--ivory); border: 1px solid #ffffff45; }
+    .button-quiet:hover {
+      border-color: var(--sea-glass);
+      color: var(--sea-glass);
+      transform: translateY(-2px);
+    }
+    .button-quiet .play {
+      width: 21px;
+      height: 21px;
+      display: grid;
+      place-items: center;
+      border: 1px solid #8de0d080;
+      border-radius: 50%;
+      font-size: 8px;
+      padding-left: 2px;
+    }
+    .hero-foot {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 38px;
+      color: #b2c3c3;
+      font: 10px var(--mono);
+      letter-spacing: .45px;
+      animation: riseIn .9s .62s both;
+    }
+    .hero-foot .tiny-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--coral);
+    }
+
+    .map-marker {
+      position: absolute;
+      z-index: 2;
+      width: 13px;
+      height: 13px;
+      padding: 0;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      background: var(--coral);
+      box-shadow: 0 0 0 5px #ff775d2e, 0 0 21px #ff775d99;
+      cursor: help;
+      animation: beacon 3.4s ease-out infinite;
+    }
+    .map-marker:after {
+      content: "";
+      position: absolute;
+      inset: -7px;
+      border: 1px solid #ff775d6b;
+      border-radius: 50%;
+      animation: beacon 3.4s .7s ease-out infinite;
+    }
+    .map-marker .label {
+      position: absolute;
+      left: 22px;
+      top: 50%;
+      transform: translateY(-50%) translateX(-4px);
+      opacity: 0;
+      white-space: nowrap;
+      padding: 7px 10px;
+      border: 1px solid #ffffff30;
+      border-radius: 4px;
+      color: var(--ivory);
+      background: #071e2bd9;
+      font: 10px var(--mono);
+      letter-spacing: .3px;
+      transition: opacity .2s, transform .2s;
+      pointer-events: none;
+    }
+    .map-marker:hover .label,
+    .map-marker:focus-visible .label {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+    .marker-east { left: 25%; top: 40%; }
+    .marker-south { left: 22%; top: 68%; }
+    .marker-islands { left: 70%; top: 25%; }
+    .map-note {
+      position: absolute;
+      left: clamp(22px, 6vw, 92px);
+      bottom: 42px;
+      color: #d9e6e4a8;
+      font: 9px var(--mono);
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+    }
+
+    .slit-in-vertical {
+      -webkit-animation: slit-in-vertical 0.45s ease-out both;
+      animation: slit-in-vertical 0.45s ease-out both;
+    }
+    .text-pop-up-top {
+      -webkit-animation: text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+      animation: text-pop-up-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    }
+    .scroll-cue {
+      position: absolute;
+      bottom: 31px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #d7e3e1a8;
+      font: 9px var(--mono);
+      letter-spacing: 1.3px;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+    .scroll-line {
+      position: relative;
+      height: 31px;
+      width: 1px;
+      overflow: hidden;
+      background: #ffffff35;
+    }
+    .scroll-line:after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: 0;
+      height: 50%;
+      width: 1px;
+      background: var(--sea-glass);
+      animation: scrollLine 1.8s ease-in-out infinite;
+    }
+
+    .intro {
+      background: var(--ivory);
+      padding: clamp(66px, 9vw, 126px) max(24px, calc((100% - 1160px)/2));
+      display: grid;
+      grid-template-columns: 1fr .78fr;
+      gap: clamp(45px, 9vw, 145px);
+      align-items: center;
+    }
+    .section-tag {
+      color: var(--teal);
+      font: 500 10px var(--mono);
+      letter-spacing: 1.6px;
+      text-transform: uppercase;
+    }
+    .intro h2, .section-heading {
+      margin: 17px 0;
+      color: var(--ink);
+      font: 600 clamp(33px, 4.1vw, 55px)/1.08 var(--display);
+      letter-spacing: -.06em;
+    }
+    .intro p {
+      max-width: 560px;
+      color: #52686d;
+      font-size: 15px;
+      line-height: 1.85;
+    }
+    .fact-card {
+      position: relative;
+      padding: 31px 32px 28px;
+      border: 1px solid #c8d7cf;
+      background: #edf0e7;
+      overflow: hidden;
+    }
+    .fact-card:before {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -72px;
+      top: -110px;
+      border: 1px solid #0d667025;
+      border-radius: 50%;
+      box-shadow: 0 0 0 19px #0d667008, 0 0 0 39px #0d667008;
+    }
+    .fact-label {
+      color: var(--teal);
+      font: 500 9px var(--mono);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    .fact-number {
+      margin: 19px 0 1px;
+      color: var(--teal);
+      font: 600 clamp(61px, 7vw, 88px)/1 var(--display);
+      letter-spacing: -.08em;
+    }
+    .fact-title { max-width: 250px; font: 600 17px/1.45 var(--display); }
+    .fact-source {
+      padding-top: 18px;
+      border-top: 1px solid #c8d7cf;
+      color: #5a7274;
+      font-size: 10px;
+      line-height: 1.7;
+    }
+    .fact-source a { color: var(--teal); text-underline-offset: 3px; }
+
+    .chapters {
+      padding: 38px max(24px, calc((100% - 1160px)/2)) 100px;
+      background: var(--ivory);
+    }
+    .chapters-header {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-bottom: 27px;
+    }
+    .chapters-header h2 {
+      margin: 12px 0 0;
+      color: var(--ink);
+      font: 600 clamp(32px, 4vw, 48px)/1.1 var(--display);
+      letter-spacing: -.06em;
+    }
+    .chapters-header p {
+      max-width: 390px;
+      margin: 0 0 3px;
+      color: #5d7277;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+    .chapter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+    .chapter {
+      position: relative;
+      min-height: 275px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 25px;
+      border: 1px solid #d6ded5;
+      color: var(--ink);
+      background: #fbfaf5;
+      text-decoration: none;
+      overflow: hidden;
+      transition: transform .3s, box-shadow .3s, border-color .3s;
+    }
+    .chapter:after {
+      content: "";
+      position: absolute;
+      width: 190px;
+      height: 190px;
+      right: -85px;
+      bottom: -105px;
+      border: 1px solid #0d667035;
+      border-radius: 50%;
+      box-shadow: 0 0 0 18px #0d667008, 0 0 0 38px #0d667008;
+      transition: transform .45s;
+    }
+    .chapter:hover {
+      transform: translateY(-5px);
+      border-color: #8cb9aa;
+      box-shadow: 0 17px 35px #102c3812;
+    }
+    .chapter:hover:after { transform: scale(1.25); }
+    .chapter-index { color: var(--coral); font: 10px var(--mono); letter-spacing: 1px; }
+    .chapter-icon {
+      width: 39px;
+      height: 39px;
+      display: grid;
+      place-items: center;
+      margin: 29px 0 17px;
+      border-radius: 50%;
+      color: var(--teal);
+      background: #e1eee6;
+    }
+    .chapter-icon svg { width: 19px; height: 19px; }
+    .chapter h3 {
+      margin: 0 0 9px;
+      font: 600 19px var(--display);
+      letter-spacing: -.4px;
+    }
+    .chapter p {
+      max-width: 290px;
+      margin: 0;
+      color: #617579;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+    .chapter-link {
+      position: relative;
+      z-index: 1;
+      margin-top: auto;
+      padding-top: 22px;
+      color: var(--teal);
+      font: 10px var(--mono);
+      letter-spacing: .4px;
+    }
+
+    .sources {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: center;
+      padding: 24px max(24px, calc((100% - 1160px)/2));
+      background: #e7ebe2;
+    }
+    .sources p {
+      margin: 0;
+      color: #50676b;
+      font: 10px/1.6 var(--mono);
+      letter-spacing: .15px;
+    }
+    .source-links { display: flex; flex-wrap: wrap; gap: 17px; }
+    .source-links a { color: var(--teal); font-size: 10px; text-underline-offset: 3px; }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      padding: 21px max(24px, calc((100% - 1160px)/2));
+      color: #c3d0ce;
+      background: var(--ocean);
+      font-size: 10px;
+    }
+    footer strong { color: var(--sea-glass); font: 500 10px var(--mono); letter-spacing: 1px; }
+    footer a { color: var(--sea-glass); text-underline-offset: 3px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .stagger > * { transition-delay: calc(var(--i, 0) * 110ms); }
+
+    .shadow-pop-tr {
+      -webkit-animation: shadow-pop-tr 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+      animation: shadow-pop-tr 0.3s cubic-bezier(0.470, 0.000, 0.745, 0.715) both;
+    }
+    @-webkit-keyframes shadow-pop-tr {
+      0% {
+        -webkit-box-shadow: 0 0 0 0 transparent;
+        box-shadow: 0 0 0 0 transparent;
+        -webkit-transform: translateX(0) translateY(0);
+        transform: translateX(0) translateY(0);
+      }
+      100% {
+        -webkit-box-shadow: 8px -8px 0 -1px var(--coral), 8px -8px 0 0 var(--coral);
+        box-shadow: 8px -8px 0 -1px var(--coral), 8px -8px 0 0 var(--coral);
+        -webkit-transform: translateX(-5px) translateY(5px);
+        transform: translateX(-5px) translateY(5px);
+      }
+    }
+    @keyframes shadow-pop-tr {
+      0% { box-shadow: 0 0 0 0 transparent; transform: translateX(0) translateY(0); }
+      100% {
+        box-shadow: 8px -8px 0 -1px var(--coral), 8px -8px 0 0 var(--coral);
+        transform: translateX(-5px) translateY(5px);
+      }
+    }
+
+    @keyframes navIn {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: none; }
+    }
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(21px); }
+      to { opacity: 1; transform: none; }
+    }
+}
+    @-webkit-keyframes slit-in-vertical {
+      0% { -webkit-transform: scaleY(0); transform: scaleY(0); opacity: 0; }
+      100% { -webkit-transform: scaleY(1); transform: scaleY(1); opacity: 1; }
+    }
+    @keyframes slit-in-vertical {
+      0% { transform: scaleY(0); opacity: 0; }
+      100% { transform: scaleY(1); opacity: 1; }
+    }
+    @-webkit-keyframes text-pop-up-top {
+      0% {
+        -webkit-transform: translateY(50px) scale(.5);
+        transform: translateY(50px) scale(.5);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(4px);
+        filter: blur(4px);
+        opacity: 0;
+      }
+      100% {
+        -webkit-transform: translateY(0) scale(1);
+        transform: translateY(0) scale(1);
+        -webkit-transform-origin: 50% 50%;
+        transform-origin: 50% 50%;
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+      }
+    }
+    @keyframes text-pop-up-top {
+      0% {
+        transform: translateY(50px) scale(.5);
+        transform-origin: 50% 50%;
+        filter: blur(4px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        transform-origin: 50% 50%;
+        filter: blur(0);
+        opacity: 1;
+      }
+    }
+    @keyframes beacon {
+      0% { box-shadow: 0 0 0 3px #ff775d4a, 0 0 18px #ff775d77; }
+      65% { box-shadow: 0 0 0 10px #ff775d00, 0 0 24px #ff775d55; }
+      100% { box-shadow: 0 0 0 3px #ff775d00, 0 0 18px #ff775d77; }
+    }
+    @keyframes scrollLine {
+      0% { top: -50%; }
+      100% { top: 110%; }
+    }
+
+    @media (max-width: 850px) {
+      .site-nav { height: 72px; padding: 0 24px; }
+      .nav-links { gap: 15px; }
+      .nav-links a { font-size: 11px; }
+      .hero { min-height: 820px; }
+      .hero-content { width: min(650px, 72vw); margin-right: 7vw; }
+      .hero:before {
+        background:
+          linear-gradient(90deg,#071e2b25 0%,#071e2b75 34%,#071e2bd9 60%,#071e2be8 100%),
+          linear-gradient(0deg,#071e2b 0%,transparent 35%,#071e2b55 100%);
+      }
+      .intro { grid-template-columns: 1fr .7fr; gap: 34px; }
+    }
+
+    @media (max-width: 620px) {
+      html { scroll-padding-top: 65px; }
+      .site-nav { height: 65px; padding: 0 17px; }
+      .brand-name { font-size: 10px; letter-spacing: 1px; }
+      .brand-mark { width: 31px; height: 31px; }
+      .nav-links { gap: 0; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-links .nav-cta { padding: 10px 12px; font-size: 10px; }
+      .hero { min-height: max(790px, 100svh); align-items: end; }
+      .hero-video { position:absolute; z-index:-2; inset:0; width:100%; height:100%; object-fit:cover; opacity:.3; pointer-events:none; }
+    .hero-art img { object-position: 34% 50%; }
+      .hero:before {
+        background: linear-gradient(0deg,#071e2bf7 0%,#071e2bd9 34%,#071e2b38 75%,#071e2b78 100%);
+      }
+      .hero-content { width: auto; margin: 0; padding: 0 23px 128px; }
+      .eyebrow { font-size: 9px; letter-spacing: 1.35px; }
+      h1 { margin: 21px 0 16px; font-size: clamp(45px, 12vw, 72px); letter-spacing: -.075em; }
+      h1 span { white-space: normal; }
+      .hero-copy { max-width: 440px; font-size: 14px; }
+      .hero-actions { gap: 12px; margin-top: 23px; }
+      .button { padding: 13px 15px; font-size: 11px; }
+      .hero-foot { margin-top: 24px; font-size: 8px; }
+      .map-marker { transform: scale(.82); }
+      .marker-east { left: 20%; top: 34%; }
+      .marker-south { left: 17%; top: 55%; }
+      .marker-islands { left: 68%; top: 24%; }
+      .map-note { bottom: 78px; left: 23px; font-size: 8px; }
+      .scroll-cue {
+        left: auto;
+        right: 23px;
+        bottom: 31px;
+        transform: none;
+        gap: 7px;
+        font-size: 8px;
+      }
+      .scroll-line { height: 25px; }
+      .intro { display: block; padding: 72px 23px; }
+      .intro h2 { font-size: 40px; }
+      .intro p { font-size: 14px; }
+      .fact-card { margin-top: 35px; padding: 25px; }
+      .fact-number { font-size: 72px; }
+      .chapters { padding: 35px 23px 72px; }
+      .chapters-header { display: block; margin-bottom: 22px; }
+      .chapters-header h2 { font-size: 37px; }
+      .chapters-header p { margin-top: 13px; }
+      .chapter-grid { grid-template-columns: 1fr; gap: 11px; }
+      .chapter { min-height: 235px; padding: 22px; }
+      .chapter-icon { margin: 20px 0 14px; }
+      .sources { display: block; padding: 22px 23px; }
+      .source-links { gap: 10px 15px; margin-top: 13px; }
+      footer { align-items: flex-start; flex-direction: column; padding: 20px 23px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *:before, *:after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .hero-video { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-nav">
+    <a class="brand" href="#top" aria-label="Coastline India home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M3 14.5c2.3-2.1 4.5-2.1 6.8 0s4.5 2.1 6.7 0 4.5-2.1 6.5 0M3 19c2.3-2.1 4.5-2.1 6.8 0s4.5 2.1 6.7 0 4.5-2.1 6.5 0M12 3v7m-3-3 3 3 3-3"
+            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <span class="brand-name">COASTLINE <span>/</span> INDIA</span>
+    </a>
+
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="risk.html">The Risk</a>
+      <a href="science.html">The Science</a>
+      <a href="prepared.html">Be Prepared</a>
+      <a class="nav-cta" href="risk.html">Explore the coast <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+<div class="hero-art">
+        <img src="assets/coastline-hero.png" alt="Illustrative aerial map of India's coastline, the Bay of Bengal, and Andaman Sea at night">
+      </div>
+
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="prepared-intro.mp4" type="video/mp4"></video>
+      <button class="map-marker marker-east" type="button" aria-label="Illustrative marker: Eastern coastline">
+        <span class="label" aria-hidden="true">EASTERN COASTLINE</span>
+      </button>
+      <button class="map-marker marker-south" type="button" aria-label="Illustrative marker: Southern India">
+        <span class="label" aria-hidden="true">SOUTHERN INDIA</span>
+      </button>
+      <button class="map-marker marker-islands" type="button" aria-label="Illustrative marker: Andaman Sea">
+        <span class="label" aria-hidden="true">ANDAMAN SEA</span>
+      </button>
+
+      <div class="hero-content">
+        <div class="eyebrow">An ocean science field note <span>·</span> Student project</div>
+        <h1 id="hero-title" class="text-pop-up-top">
+          <span>The ocean is</span>
+          <span>powerful.</span>
+          <span class="accent">Preparedness</span>
+          <span class="accent">is power.</span>
+        </h1>
+        <p class="hero-copy">Explore tsunami exposure along India’s coasts, the science behind the waves, how the warning system works, and what preparedness can change.</p>
+        <div class="hero-actions">
+          <a class="button button-primary shadow-pop-tr" href="risk.html">Explore the risk <span class="arrow" aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="science.html"><span class="play" aria-hidden="true">▶</span> How warnings work</a>
+        </div>
+        <div class="hero-foot"><span class="tiny-dot"></span> EDUCATIONAL OVERVIEW <span>·</span> NOT A LIVE WARNING SERVICE</div>
+      </div>
+
+      <div class="map-note slit-in-vertical">Illustrative coastline · not a hazard map</div>
+      <a class="scroll-cue" href="#introduction">
+        <span class="scroll-line" aria-hidden="true"></span> Scroll to explore
+      </a>
+    </section>
+
+    <section class="intro" id="introduction">
+      <div class="intro-copy reveal">
+        <div class="section-tag">01 / A changing coastline</div>
+        <h2>Every coastline has a story. Every community deserves time to prepare.</h2>
+        <p>A tsunami is a series of long waves that can be triggered by sudden movement of the seafloor. This project looks at how coastal geography and community readiness shape risk—and how observing the ocean can help authorities issue advisories.</p>
+      </div>
+      <aside class="fact-card reveal" aria-label="Fact about India's tsunami warning centre">
+        <div class="fact-label">A system watching the ocean</div>
+        <div class="fact-number">24/7</div>
+        <div class="fact-title">India’s tsunami warning centre operates around the clock.</div>
+        <div class="fact-source">ITEWC at INCOIS monitors data and provides tsunami advisories. <a href="https://tsunami.incois.gov.in/TEWS/searlywarnings.jsp" target="_blank" rel="noopener noreferrer">Source: INCOIS ↗</a></div>
+      </aside>
+    </section>
+
+    <section class="chapters" aria-labelledby="chapters-title">
+      <div class="chapters-header reveal">
+        <div>
+          <div class="section-tag">02 / Follow the evidence</div>
+          <h2 id="chapters-title">Three parts of resilience.</h2>
+        </div>
+        <p>Risk is more than a wave. It connects physical science, coastal exposure, timely information, and the choices people can prepare for in advance.</p>
+      </div>
+
+      <div class="chapter-grid stagger">
+        <a class="chapter reveal" id="risk" href="risk.html">
+          <span class="chapter-index">FIELD NOTE 01</span>
+          <span class="chapter-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M3 19V5m0 14h18M6 16l4-5 3 2 5-7 3 2"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3>The Risk</h3>
+          <p>See how elevation, coastal shape, exposed people, and infrastructure influence vulnerability.</p>
+          <span class="chapter-link">EXPLORE COASTAL RISK ↗</span>
+        </a>
+
+        <a class="chapter reveal" id="science" href="science.html">
+          <span class="chapter-index">FIELD NOTE 02</span>
+          <span class="chapter-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M4 16c2-2 4-2 6 0s4 2 6 0 4-2 6 0M4 11c2-2 4-2 6 0s4 2 6 0 4-2 6 0M12 3v4m-2-2 2 2 2-2"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3>The Science</h3>
+          <p>Follow a tsunami from seafloor displacement across the ocean to a changing shoreline.</p>
+          <span class="chapter-link">UNDERSTAND THE WAVES ↗</span>
+        </a>
+
+        <a class="chapter reveal" id="prepare" href="prepared.html">
+          <span class="chapter-index">FIELD NOTE 03</span>
+          <span class="chapter-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path d="M12 3 20 6v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6l8-3Z"
+                stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+              <path d="m8.5 12 2.3 2.3 4.8-5"
+                stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <h3>Be Prepared</h3>
+          <p>Learn why clear routes, community drills, and trusted official alerts matter.</p>
+          <span class="chapter-link">EXPLORE PREPAREDNESS ↗</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="sources" aria-label="Project sources">
+      <p>PROJECT SOURCES<br>Official information and further reading</p>
+      <div class="source-links">
+        <a href="https://tsunami.incois.gov.in/TEWS/searlywarnings.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Early warning system ↗</a>
+        <a href="https://tsunami.incois.gov.in/TEWS/dsssop.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Advisories &amp; actions ↗</a>
+        <a href="https://www.usgs.gov/centers/pcmsc/life-tsunami" target="_blank" rel="noopener noreferrer">USGS · Life of a tsunami ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>COASTLINE / INDIA</strong>
+    <span>Student chemistry &amp; earth-science project · Educational overview only</span>
+    <a href="https://tsunami.incois.gov.in/TEWS/" target="_blank" rel="noopener noreferrer">For official information, visit INCOIS ↗</a>
+  </footer>
+
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const revealItems = document.querySelectorAll(".reveal");
+
+    document.querySelectorAll(".stagger").forEach(function (group) {
+      Array.from(group.children).forEach(function (item, index) {
+        item.style.setProperty("--i", index);
+      });
+    });
+
+    if (!reduceMotion && "IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14 });
+
+      revealItems.forEach(function (item) {
+        revealObserver.observe(item);
+      });
+    } else {
+      revealItems.forEach(function (item) {
+        item.classList.add("visible");
+      });
+    }
+
+    const hero = document.querySelector(".hero");
+
+    if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+      hero.addEventListener("pointermove", function (event) {
+        const bounds = hero.getBoundingClientRect();
+        const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+        const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+        hero.style.setProperty("--px", (x * -9).toFixed(1) + "px");
+        hero.style.setProperty("--py", (y * -7).toFixed(1) + "px");
+      });
+
+      hero.addEventListener("pointerleave", function () {
+        hero.style.setProperty("--px", "0px");
+        hero.style.setProperty("--py", "0px");
+      });
+    }
+  </script>
+</body>
+</html>
+

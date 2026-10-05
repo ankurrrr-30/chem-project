@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071E2B">
+  <meta name="description" content="An illustrated guide to tsunami science: generation, ocean travel, shoaling, and India's early-warning system.">
+  <title>The Science — Coastline / India</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ocean:#071E2B;--deep:#0A2D3A;--teal:#0D6670;--glass:#8DE0D0;--ivory:#F5F2E9;--coral:#FF775D;--ink:#102C38;--muted:#5D7277;--line:#D8E0D8;--display:"Manrope",sans-serif;--body:"DM Sans",sans-serif;--mono:"DM Mono",monospace}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--body);overflow-x:hidden}a{color:inherit}:focus-visible{outline:3px solid var(--coral);outline-offset:4px}button,input{font:inherit}
+    #scroll-progress{position:fixed;z-index:40;top:0;left:0;width:0;height:3px;background:var(--glass);box-shadow:0 0 14px #8de0d099}
+    .nav{position:absolute;z-index:30;inset:0 0 auto;height:78px;padding:0 clamp(20px,6vw,90px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff24;color:var(--ivory);transition:background .3s,height .3s}.nav.scrolled{position:fixed;height:66px;background:#071e2bef;backdrop-filter:blur(14px);border-color:#ffffff17}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none}.brand-icon{width:34px;height:34px;border:1px solid #8de0d066;border-radius:50%;display:grid;place-items:center;color:var(--glass)}.brand-icon svg{width:18px}.brand-name{font:500 11px var(--mono);letter-spacing:1.25px}.brand-name i{font-style:normal;color:#8de0d099;padding:0 4px}
+    .nav-links{display:flex;gap:clamp(15px,2.7vw,36px);align-items:center}.nav-links a{font-size:11px;text-decoration:none;color:#e2e9e7;transition:color .2s}.nav-links a:hover{color:var(--glass)}.nav-links .active{color:var(--glass)}.nav-links .home-link{color:var(--glass);border:1px solid #8de0d06b;padding:10px 15px;border-radius:50px}
+    .hero{position:relative;isolation:isolate;min-height:max(700px,92svh);display:flex;align-items:center;overflow:hidden;background:var(--ocean);color:var(--ivory)}
+    .hero-art{position:absolute;z-index:-3;inset:-2%;transform:translate3d(var(--px,0),var(--py,0),0) scale(1.04);transition:transform .3s ease-out}.hero-art img{width:100%;height:100%;display:block;object-fit:cover;object-position:43% 50%}
+    .hero-video{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;pointer-events:none}
+    .hero:before{content:"";position:absolute;z-index:-2;inset:0;background:linear-gradient(90deg,#071e2b12 0%,#071e2b52 34%,#071e2bd7 64%,#071e2bf2 100%),linear-gradient(0deg,#071e2b 0%,transparent 34%,#071e2b70 100%)}
+    .hero:after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.1;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E")}
+    .hero-content{width:min(680px,55vw);margin-left:auto;margin-right:clamp(26px,9vw,145px);padding:120px 0 110px}
+    .eyebrow,.tag{font:500 10px var(--mono);letter-spacing:1.65px;text-transform:uppercase}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--glass);animation:rise .8s .12s both}.eyebrow:before{content:"";width:25px;height:1px;background:var(--coral)}
+    h1{font:600 clamp(54px,7.1vw,96px)/.96 var(--display);letter-spacing:-.075em;margin:25px 0 19px;animation:pop .6s .18s both}h1 em{font-style:normal;color:var(--glass)}.hero-copy{max-width:490px;color:#d4e0de;font-size:15px;line-height:1.8;animation:rise .8s .32s both}
+    .hero-links{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:28px;animation:rise .8s .42s both}.button{display:inline-flex;align-items:center;gap:10px;border-radius:99px;padding:13px 18px;text-decoration:none;font-size:11px;font-weight:700;transition:transform .25s,background .25s,color .25s,box-shadow .25s}.button-main{color:var(--ocean);background:var(--glass)}.button-main:hover{transform:translateY(-3px);background:#b8f1e7;box-shadow:0 12px 27px #8de0d033}.button-quiet{border:1px solid #ffffff4a;color:var(--ivory)}.button-quiet:hover{transform:translateY(-2px);border-color:var(--glass);color:var(--glass)}
+    .hero-note{position:absolute;left:clamp(22px,6vw,90px);bottom:34px;color:#e8f0efb8;font:9px var(--mono);letter-spacing:1.2px;text-transform:uppercase}.scroll-cue{position:absolute;bottom:25px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:10px;color:#d6e1dfa6;text-decoration:none;font:9px var(--mono);letter-spacing:1.2px;text-transform:uppercase}.scroll-cue i{height:28px;width:1px;background:var(--glass);animation:scrollPulse 1.7s infinite}
+    .wrap{width:min(1160px,calc(100% - 48px));margin:auto}.intro{padding:clamp(72px,9vw,120px) 0 42px;background:var(--ivory)}.intro-grid{display:grid;grid-template-columns:1fr .65fr;gap:clamp(35px,8vw,110px);align-items:end}.tag{color:var(--teal)}h2{margin:13px 0 0;color:var(--ink);font:600 clamp(35px,4.6vw,59px)/1.05 var(--display);letter-spacing:-.065em}.intro p{max-width:430px;margin:0;color:var(--muted);font-size:13px;line-height:1.8}.scroll-instruction{margin-top:31px;display:flex;align-items:center;gap:12px;color:#708286;font:9px var(--mono);letter-spacing:1.2px;text-transform:uppercase}.scroll-instruction span{color:var(--coral)}
+    .story{position:relative;padding:14px 0 20vh;background:var(--ivory)}.story-stack{position:relative;perspective:1400px;padding:10px 0 13vh}
+    .stage-card{--fold:0;--index:0;position:sticky;top:calc(84px + var(--index)*13px);z-index:calc(10 + var(--index));min-height:68svh;margin:0 auto 13vh;width:min(1160px,calc(100% - 48px));padding:clamp(25px,5vw,58px);border:1px solid #ffffff20;border-radius:14px;overflow:hidden;color:var(--ivory);background:var(--ocean);transform-origin:top center;transform:translateY(calc(var(--fold)*-14px)) scale(calc(1 - var(--fold)*.055)) rotateX(calc(var(--fold)*5deg));filter:brightness(calc(1 - var(--fold)*.12));transition:filter .12s linear;box-shadow:0 22px 70px #071e2b20}
+    .stage-card:nth-child(2){background:#0b3945}.stage-card:nth-child(3){background:#0d4e58}.stage-card:nth-child(4){background:#102c38}
+    .stage-card:before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.42;background:radial-gradient(ellipse at 85% 20%,#8de0d01e,transparent 40%),linear-gradient(130deg,transparent 25%,#ffffff08 55%,transparent 75%)}
+    .stage-top{position:relative;display:flex;justify-content:space-between;align-items:center;gap:15px;color:var(--glass);font:10px var(--mono);letter-spacing:1.4px;text-transform:uppercase}.stage-count{display:flex;align-items:center;gap:9px}.stage-count:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 5px #ff775d25}
+    .stage-layout{position:relative;display:grid;grid-template-columns:1fr .83fr;gap:clamp(24px,6vw,86px);align-items:center;min-height:calc(68svh - 120px);padding-top:20px}
+    .stage-card h3{max-width:620px;margin:0 0 17px;font:600 clamp(35px,5vw,65px)/1.02 var(--display);letter-spacing:-.065em}.stage-card h3 em{font-style:normal;color:var(--glass)}.stage-copy{max-width:580px;color:#ccdad8;font-size:14px;line-height:1.85}.stage-copy strong{color:var(--glass);font-weight:600}.cite{display:inline-block;margin-top:17px;color:var(--glass);font-size:10px;text-underline-offset:3px}
+    .diagram{position:relative;min-height:270px;border:1px solid #ffffff26;border-radius:10px;background:#ffffff07;overflow:hidden;display:grid;place-items:center}.diagram svg{width:100%;height:100%;position:absolute;inset:0}.diagram-label{position:absolute;bottom:15px;left:16px;color:#bfd0cd;font:9px var(--mono);letter-spacing:.7px;text-transform:uppercase}
+    .fault-water{animation:waterShift 3.5s ease-in-out infinite alternate}.fault-line{stroke-dasharray:7 6;animation:dash 10s linear infinite}.wave-path{stroke-dasharray:10 8;animation:dash 8s linear infinite}
+    .formula{font:500 clamp(29px,4.2vw,49px) var(--mono);color:var(--glass);letter-spacing:-.06em}.formula sup{font-size:.52em}.formula-note{margin-top:11px;color:#c5d4d2;font-size:10px;line-height:1.6}
+    .lab{position:relative;z-index:1;width:100%;padding:23px}.lab-title{color:var(--glass);font:10px var(--mono);letter-spacing:1px;text-transform:uppercase}.lab-depth{display:flex;justify-content:space-between;align-items:baseline;margin:20px 0 5px}.lab-depth output{font:600 28px var(--display);color:var(--ivory)}.lab-depth span{font:9px var(--mono);color:#b9ccca}.depth-slider{width:100%;accent-color:var(--glass);cursor:pointer}.slider-labels{display:flex;justify-content:space-between;color:#9eb5b2;font:8px var(--mono)}.speed-readout{margin-top:19px;padding-top:15px;border-top:1px solid #ffffff28;display:flex;justify-content:space-between;align-items:end}.speed-readout strong{font:600 31px var(--display);color:var(--glass)}.speed-readout span{max-width:120px;color:#bdd0cd;font-size:9px;line-height:1.5;text-align:right}.lab-caveat{margin:14px 0 0;color:#a9bfbb;font-size:9px;line-height:1.6}
+    .shoreline{position:relative;width:100%;height:250px;overflow:hidden}.shoreline .sea{position:absolute;inset:0;background:linear-gradient(180deg,#0d6670bb,#0d667066 65%,transparent 66%)}.shoreline .land{position:absolute;right:0;bottom:0;width:44%;height:54%;background:#e7e1ce;clip-path:polygon(18% 100%,26% 85%,39% 78%,44% 65%,57% 57%,63% 39%,72% 35%,78% 20%,100% 0,100% 100%)}.shoreline .shore{position:absolute;right:44%;bottom:52%;height:2px;width:38%;background:var(--glass);transform:rotate(-30deg);transform-origin:right}.shoreline .wave{position:absolute;left:-12%;width:88%;height:50px;border:1px solid #8de0d088;border-color:#8de0d099 transparent transparent;border-radius:50%;animation:waveFloat 5s ease-in-out infinite alternate}.shoreline .w1{top:31%}.shoreline .w2{top:43%;left:-5%;animation-delay:-2s}.shoreline .w3{top:55%;left:8%;animation-delay:-1s}.shoreline .wave-arrow{position:absolute;left:38%;top:43%;color:var(--coral);font:22px var(--mono);animation:arrowFlow 2s ease-in-out infinite}.shoreline .shore-label{position:absolute;right:13px;bottom:13px;color:var(--ink);font:9px var(--mono);letter-spacing:.6px;text-transform:uppercase}.shoreline .ocean-label{position:absolute;left:15px;top:15px;color:#e5f3f0;font:9px var(--mono);letter-spacing:1px}
+    .warning-flow{position:relative;z-index:1;display:grid;gap:9px;width:100%}.flow-node{display:grid;grid-template-columns:34px 1fr auto;align-items:center;gap:12px;padding:13px;border:1px solid #ffffff22;background:#ffffff08}.flow-num{color:var(--coral);font:10px var(--mono)}.flow-node strong{font:600 12px var(--display);color:var(--ivory)}.flow-node span:last-child{color:#b8ccca;font-size:9px;text-align:right}.flow-arrow{padding-left:20px;color:var(--glass);font:14px var(--mono)}
+    .after-story{padding:5px 0 95px;background:var(--ivory)}.after-panel{display:grid;grid-template-columns:1fr .8fr;gap:30px;align-items:center;padding:30px;border:1px solid var(--line);background:#ebece2}.after-panel h2{font-size:clamp(28px,3.7vw,43px)}.after-panel p{color:#5d7277;font-size:12px;line-height:1.75}.after-panel a{justify-self:end;padding:13px 17px;border-radius:99px;color:white;background:var(--teal);font-size:10px;text-decoration:none;transition:transform .2s}.after-panel a:hover{transform:translateY(-3px)}
+    .sources{padding:22px 0;background:#e7ebe2}.sources-row{display:flex;justify-content:space-between;align-items:center;gap:20px}.sources-label{margin:0;color:#50676b;font:10px/1.6 var(--mono)}.source-links{display:flex;flex-wrap:wrap;gap:10px 17px}.source-links a{color:var(--teal);font-size:10px;text-underline-offset:3px}
+    footer{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:22px max(24px,calc((100% - 1160px)/2));color:#c3d0ce;background:var(--ocean);font-size:10px}footer strong{color:var(--glass);font:500 10px var(--mono);letter-spacing:1px}footer a{color:var(--glass);text-underline-offset:3px}
+    .js .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1)}.js .reveal.visible{opacity:1;transform:none}
+    @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}@keyframes pop{from{opacity:0;filter:blur(5px);transform:translateY(25px) scale(.96)}to{opacity:1;filter:blur(0);transform:none}}@keyframes scrollPulse{0%{transform:scaleY(.45);transform-origin:top;opacity:.4}50%{transform:scaleY(1);transform-origin:top;opacity:1}100%{transform:scaleY(.3);transform-origin:top;opacity:.4}}@keyframes dash{to{stroke-dashoffset:-120}}@keyframes waterShift{from{transform:translateY(0)}to{transform:translateY(-8px)}}@keyframes waveFloat{from{transform:translateX(-2%) scaleY(.9)}to{transform:translateX(6%) scaleY(1.1)}}@keyframes arrowFlow{0%,100%{transform:translateX(0);opacity:.55}50%{transform:translateX(12px);opacity:1}}
+    @media(max-width:850px){.nav{padding:0 22px}.hero{min-height:760px}.hero-content{width:min(620px,68vw);margin-right:6vw}.hero:before{background:linear-gradient(90deg,#071e2b28 0%,#071e2b78 35%,#071e2be8 68%,#071e2bf5 100%),linear-gradient(0deg,#071e2b 0%,transparent 36%,#071e2b66 100%)}.stage-layout{grid-template-columns:1fr .76fr;gap:26px}.diagram{min-height:240px}}
+    @media(max-width:620px){html{scroll-padding-top:63px}.nav{height:64px;padding:0 16px}.nav.scrolled{height:60px}.brand-name{font-size:9px}.brand-icon{width:30px;height:30px}.nav-links{gap:10px}.nav-links a{font-size:9px;white-space:nowrap}.hero{min-height:max(770px,100svh);align-items:end}.hero-art img{object-position:35% 50%}.hero:before{background:linear-gradient(0deg,#071e2bf7 0%,#071e2bd9 36%,#071e2b45 80%,#071e2b88 100%)}.hero-content{width:auto;margin:0;padding:0 22px 117px}.eyebrow{font-size:9px}h1{font-size:clamp(48px,12vw,74px);margin:20px 0 16px}.hero-copy{font-size:13px}.hero-links{gap:9px;margin-top:21px}.button{padding:12px 14px;font-size:10px}.hero-note{left:22px;bottom:34px;font-size:8px}.scroll-cue{left:auto;right:20px;bottom:26px;transform:none;font-size:8px}.wrap{width:calc(100% - 42px)}.intro{padding:66px 0 31px}.intro-grid{grid-template-columns:1fr;gap:17px}.intro p{font-size:12px}.scroll-instruction{margin-top:22px}.story{padding-top:4px;padding-bottom:12vh}.story-stack{padding-bottom:9vh}.stage-card{top:calc(66px + var(--index)*9px);width:calc(100% - 26px);min-height:660px;margin-bottom:10vh;padding:20px;border-radius:11px}.stage-layout{grid-template-columns:1fr;gap:16px;min-height:auto;padding-top:27px}.stage-card h3{font-size:clamp(36px,10vw,54px);margin-bottom:13px}.stage-copy{font-size:12px;line-height:1.72}.diagram{min-height:208px}.formula{font-size:32px}.lab{padding:16px}.lab-depth output{font-size:24px}.speed-readout strong{font-size:27px}.shoreline{height:205px}.flow-node{grid-template-columns:28px 1fr auto;gap:8px;padding:10px}.flow-node strong{font-size:10px}.flow-node span:last-child{font-size:8px}.after-story{padding:2px 0 58px}.after-panel{grid-template-columns:1fr;padding:21px;gap:12px}.after-panel h2{font-size:31px}.after-panel a{justify-self:start}.sources-row{display:block}.source-links{margin-top:13px}.source-links a{font-size:9px}footer{align-items:flex-start;flex-direction:column;padding:20px 22px}}
+    @media(prefers-reduced-motion:reduce){.hero-video{display:none}*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.stage-card{position:relative;top:auto;transform:none!important;filter:none!important}.js .reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="brand" href="index.html" aria-label="Coastline India home"><span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0M12 3v7m-3-3 3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="brand-name">COASTLINE <i>/</i> INDIA</span></a>
+    <nav class="nav-links" aria-label="Main navigation"><a href="risk.html">The Risk</a><a href="prepared.html">Be Prepared</a><a href="#science-story" class="active">The Science</a></nav>
+  </header>
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art"><img src="assets/coastline-hero.png" alt="Illustrative view of the Indian coastline and ocean depths"></div>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="science-intro.mp4" type="video/mp4"></video>
+      <div class="hero-content">
+        <div class="eyebrow">Field note 02 <span>·</span> The science of a tsunami</div>
+        <h1 id="hero-title">A wave begins<br>far below the <em>surface.</em></h1>
+        <p class="hero-copy">Follow the journey from seafloor movement to coastal surge—and see how India watches the ocean for signs of a threat.</p>
+        <div class="hero-links"><a class="button button-main" href="#science-story">Follow the wave ↓</a><a class="button button-quiet" href="#depth-lab">Try the depth lab ↗</a></div>
+      </div>
+      <div class="hero-note">GENERATION · PROPAGATION · RUN-UP · WARNING</div>
+      <a href="#science-story" class="scroll-cue"><i aria-hidden="true"></i> Scroll to follow the wave</a>
+    </section>
+
+    <section class="intro" id="science-story">
+      <div class="wrap intro-grid">
+        <div class="reveal"><div class="tag">THE JOURNEY / FOUR STAGES</div><h2>One ocean. A chain of motion.</h2></div>
+        <div class="reveal"><p>Scroll through the stages. Each panel stacks over the one before it; the previous layer gently tilts and recedes as the next part of the story arrives.</p></div>
+      </div>
+      <div class="wrap scroll-instruction"><span>↓</span> Keep scrolling to move through the layers</div>
+    </section>
+
+    <section class="story" aria-label="The science of a tsunami in four stages">
+      <div class="story-stack">
+        <article class="stage-card" style="--index:0">
+          <div class="stage-top"><span class="stage-count">01 / GENERATION</span><span>THE SEAFLOOR MOVES</span></div>
+          <div class="stage-layout">
+            <div><h3>First, the ocean floor <em>shifts.</em></h3><p class="stage-copy">A large undersea earthquake can abruptly lift or lower part of the seafloor, displacing the water above it. That disturbance starts a long wave. Undersea landslides and volcanic activity can also generate tsunamis. <strong>The trigger and the shape of the seafloor movement matter.</strong></p><a class="cite" href="https://tsunami.incois.gov.in/TEWS/tsunamimodeling.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Tsunami modelling ↗</a></div>
+            <div class="diagram" aria-label="Illustration of seafloor movement displacing water"><svg viewBox="0 0 480 280" role="img" aria-labelledby="fault-title"><title id="fault-title">Illustration of seafloor uplift creating a water disturbance</title><defs><linearGradient id="waterGrad" x2="0" y2="1"><stop stop-color="#0d6670" stop-opacity=".8"/><stop offset="1" stop-color="#0d6670" stop-opacity=".12"/></linearGradient></defs><path d="M0 45H480V190L340 190 300 166 260 190 0 190Z" fill="url(#waterGrad)" class="fault-water"/><path d="M0 210H190L230 184 260 155 292 183 330 210H480V280H0Z" fill="#173e47"/><path d="M0 210H190L230 184 260 155 292 183 330 210" fill="none" stroke="#8de0d0" stroke-width="3"/><path d="M247 243l20-49 20 49" fill="none" stroke="#ff775d" stroke-width="2.2" class="fault-line"/><path d="M258 125c15-13 31-13 46 0m-53-12c18-17 42-17 60 0" fill="none" stroke="#d7f4ec" stroke-width="2" class="wave-path"/><path d="M67 78h105" stroke="#ffffff38" stroke-width="1" stroke-dasharray="3 6"/><text x="68" y="69" fill="#d8eae6" font-size="10" font-family="DM Mono">WATER COLUMN</text><text x="339" y="233" fill="#b6cfca" font-size="10" font-family="DM Mono">SEAFLOOR</text><text x="225" y="267" fill="#ff9a83" font-size="9" font-family="DM Mono">FAULT MOVEMENT</text></svg><span class="diagram-label">Vertical displacement can start the wave</span></div>
+          </div>
+        </article>
+
+        <article class="stage-card" style="--index:1">
+          <div class="stage-top"><span class="stage-count">02 / PROPAGATION</span><span>ENERGY CROSSES THE BASIN</span></div>
+          <div class="stage-layout">
+            <div><h3>Across deep water, it is a <em>long wave.</em></h3><p class="stage-copy">A tsunami moves through the full depth of the ocean, not only at the surface. In deep water, its wave height may be small and hard to notice, even while the wave travels quickly across an ocean basin. INCOIS describes open-ocean speeds of roughly <strong>500–1,000 km/h</strong>.</p><a class="cite" href="https://tsunami.incois.gov.in/TEWS/tsunamimodeling.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Propagation and modelling ↗</a></div>
+            <div class="diagram" id="depth-lab">
+              <div class="lab">
+                <div class="lab-title">Interactive / Idealized wave speed</div>
+                <div class="formula">c ≈ √(g × h)</div>
+                <div class="formula-note">For a long wave in shallow-water theory, speed depends on gravity (g) and water depth (h).</div>
+                <label class="lab-depth" for="depth-slider"><span>Ocean depth</span><output id="depth-output" for="depth-slider">4,000 m</output></label>
+                <input class="depth-slider" type="range" id="depth-slider" min="100" max="6000" step="100" value="4000" aria-label="Set ocean depth in metres">
+                <div class="slider-labels"><span>100 m</span><span>6,000 m</span></div>
+                <div class="speed-readout"><strong><output id="speed-output">713 km/h</output></strong><span>Approximate idealized speed at this depth</span></div>
+                <p class="lab-caveat">A teaching model only; actual propagation depends on seafloor shape and the event. This is not a forecast.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="stage-card" style="--index:2">
+          <div class="stage-top"><span class="stage-count">03 / SHOALING &amp; RUN-UP</span><span>THE SHORELINE CHANGES THE WAVE</span></div>
+          <div class="stage-layout">
+            <div><h3>Near shore, depth changes the <em>story.</em></h3><p class="stage-copy">As a tsunami reaches shallower water, it slows and its wavelength shortens. The water level and currents can build into a powerful surge. Bays, inlets, reefs, and coastal shape influence how the wave behaves and where water travels inland.</p><p class="stage-copy">This nearshore transformation is called <strong>shoaling</strong>; the inland reach is described by inundation and run-up.</p><a class="cite" href="https://tsunami.incois.gov.in/TEWS/tsunamimodeling.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Run-up, bathymetry and coastal morphology ↗</a></div>
+            <div class="diagram" aria-label="Illustration of tsunami waves shortening and rising near a coast"><div class="shoreline"><div class="sea"></div><div class="land"></div><div class="shore"></div><div class="wave w1"></div><div class="wave w2"></div><div class="wave w3"></div><div class="wave-arrow">➜</div><span class="ocean-label">DEEP OCEAN</span><span class="shore-label">SHALLOW COAST</span></div><span class="diagram-label">Illustration · local effects vary</span></div>
+          </div>
+        </article>
+
+        <article class="stage-card" style="--index:3">
+          <div class="stage-top"><span class="stage-count">04 / DETECTION &amp; RESPONSE</span><span>OBSERVATION BECOMES AN ADVISORY</span></div>
+          <div class="stage-layout">
+            <div><h3>Science helps turn signals into <em>time.</em></h3><p class="stage-copy">India’s Tsunami Early Warning Centre at INCOIS combines earthquake information, deep-ocean and coastal sea-level observations, and model scenarios. A 24×7 centre assesses the threat and disseminates advisories to authorities. A warning system helps—but communities still need clear routes and practiced plans.</p><a class="cite" href="https://tsunami.incois.gov.in/TEWS/searlywarnings.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Indian Tsunami Early Warning System ↗</a></div>
+            <div class="warning-flow" aria-label="Tsunami monitoring and advisory process">
+              <div class="flow-node"><span class="flow-num">01</span><strong>Earthquake detected</strong><span>Seismic stations</span></div><div class="flow-arrow" aria-hidden="true">↓</div>
+              <div class="flow-node"><span class="flow-num">02</span><strong>Ocean conditions checked</strong><span>Buoys &amp; tide gauges</span></div><div class="flow-arrow" aria-hidden="true">↓</div>
+              <div class="flow-node"><span class="flow-num">03</span><strong>Threat assessed</strong><span>Models &amp; observations</span></div><div class="flow-arrow" aria-hidden="true">↓</div>
+              <div class="flow-node"><span class="flow-num">04</span><strong>Advisory shared</strong><span>Authorities respond</span></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="after-story">
+      <div class="wrap after-panel reveal"><div><div class="tag">THE TAKEAWAY</div><h2>The wave is physics.<br>The outcome is also preparation.</h2><p>Understanding the science helps explain why local monitoring, accessible warnings, and community evacuation plans belong together.</p></div><a href="risk.html">Explore the risk page ↗</a></div>
+    </section>
+    <section class="sources" id="sources"><div class="wrap sources-row"><p class="sources-label">SOURCES &amp; FURTHER READING<br>Science notes are linked to official sources.</p><div class="source-links"><a href="https://tsunami.incois.gov.in/TEWS/tsunamimodeling.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Tsunami modelling</a><a href="https://tsunami.incois.gov.in/TEWS/stsunamihistory.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Tsunami science</a><a href="https://www.usgs.gov/publications/earthquake-mechanism-and-seafloor-deformation-tsunami-generation" target="_blank" rel="noopener noreferrer">USGS · Tsunami generation</a><a href="https://oceanservice.noaa.gov/facts/tsunami.html" target="_blank" rel="noopener noreferrer">NOAA · What is a tsunami?</a></div></div></section>
+  </main>
+  <footer><strong>COASTLINE / INDIA</strong><span>Student chemistry &amp; earth-science project · Educational overview only</span><a href="index.html">Return to homepage ↑</a></footer>
+
+  <script>
+    (function () {
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.documentElement.classList.add("js");
+      var progress = document.getElementById("scroll-progress");
+      var nav = document.querySelector(".nav");
+      var cards = Array.prototype.slice.call(document.querySelectorAll(".stage-card"));
+      var ticking = false;
+
+      function clamp(value, min, max) { return Math.min(max, Math.max(min, value)); }
+
+      function updateScroll() {
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var percent = maxScroll > 0 ? window.scrollY / maxScroll * 100 : 0;
+        progress.style.width = percent + "%";
+        nav.classList.toggle("scrolled", window.scrollY > 24);
+
+        if (!reduceMotion) {
+          cards.forEach(function (card, index) {
+            if (index === cards.length - 1) return;
+            var nextCard = cards[index + 1];
+            var nextTop = nextCard.getBoundingClientRect().top;
+            var stickyTop = window.innerWidth <= 620 ? 66 + (index + 1) * 9 : 84 + (index + 1) * 13;
+            var start = window.innerHeight * 0.92;
+            var fold = clamp((start - nextTop) / (start - stickyTop), 0, 1);
+            card.style.setProperty("--fold", fold.toFixed(3));
+          });
+        }
+        ticking = false;
+      }
+
+      window.addEventListener("scroll", function () {
+        if (!ticking) { window.requestAnimationFrame(updateScroll); ticking = true; }
+      }, { passive: true });
+      window.addEventListener("resize", updateScroll);
+      updateScroll();
+
+      var revealItems = document.querySelectorAll(".reveal");
+      if (!reduceMotion && "IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { entry.target.classList.add("visible"); obs.unobserve(entry.target); }
+          });
+        }, { threshold: 0.12 });
+        revealItems.forEach(function (item) { observer.observe(item); });
+      } else {
+        revealItems.forEach(function (item) { item.classList.add("visible"); });
+      }
+
+      var depthSlider = document.getElementById("depth-slider");
+      var depthOutput = document.getElementById("depth-output");
+      var speedOutput = document.getElementById("speed-output");
+      function updateDepth() {
+        var depth = Number(depthSlider.value);
+        var speedKmh = Math.sqrt(9.81 * depth) * 3.6;
+        depthOutput.value = depth.toLocaleString() + " m";
+        depthOutput.textContent = depth.toLocaleString() + " m";
+        speedOutput.value = Math.round(speedKmh).toLocaleString() + " km/h";
+        speedOutput.textContent = Math.round(speedKmh).toLocaleString() + " km/h";
+      }
+      depthSlider.addEventListener("input", updateDepth);
+      updateDepth();
+
+      var hero = document.querySelector(".hero");
+      if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+        hero.addEventListener("pointermove", function (event) {
+          var rect = hero.getBoundingClientRect();
+          var x = (event.clientX - rect.left) / rect.width - 0.5;
+          var y = (event.clientY - rect.top) / rect.height - 0.5;
+          hero.style.setProperty("--px", (x * -8).toFixed(1) + "px");
+          hero.style.setProperty("--py", (y * -6).toFixed(1) + "px");
+        });
+        hero.addEventListener("pointerleave", function () {
+          hero.style.setProperty("--px", "0px");
+          hero.style.setProperty("--py", "0px");
+        });
+      }
+    }());
+  </script>
+</body>
+</html>
+
+

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#071E2B">
+  <meta name="description" content="Explore tsunami risk in India through hazard, exposure, vulnerability and community capacity.">
+  <title>The Risk — Coastline / India</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{--ocean:#071E2B;--deep:#0A2D3A;--teal:#0D6670;--glass:#8DE0D0;--ivory:#F5F2E9;--coral:#FF775D;--ink:#102C38;--muted:#5D7277;--line:#D8E0D8;--display:"Manrope",sans-serif;--body:"DM Sans",sans-serif;--mono:"DM Mono",monospace}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:80px}body{margin:0;background:var(--ivory);color:var(--ink);font-family:var(--body);overflow-x:hidden}a{color:inherit}button,a{-webkit-tap-highlight-color:transparent}:focus-visible{outline:3px solid var(--coral);outline-offset:4px}
+    #scroll-progress{position:fixed;z-index:30;top:0;left:0;width:0;height:3px;background:var(--glass);box-shadow:0 0 12px #8de0d099}
+    .nav{position:absolute;z-index:20;inset:0 0 auto;height:78px;padding:0 clamp(20px,6vw,90px);display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff24;color:var(--ivory);transition:background .3s,height .3s}
+    .nav.scrolled{position:fixed;height:66px;background:#071e2beF;backdrop-filter:blur(14px);border-color:#ffffff17}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none}.brand-icon{width:34px;height:34px;border:1px solid #8de0d066;border-radius:50%;display:grid;place-items:center;color:var(--glass)}.brand-icon svg{width:18px}.brand-name{font:500 11px var(--mono);letter-spacing:1.25px}.brand-name i{font-style:normal;color:#8de0d099;padding:0 4px}
+    .nav-links{display:flex;gap:clamp(15px,2.7vw,36px);align-items:center}.nav-links a{font-size:11px;text-decoration:none;color:#e2e9e7;transition:color .2s}.nav-links a:hover{color:var(--glass)}.nav-links .home-link{color:var(--glass);border:1px solid #8de0d06b;padding:10px 15px;border-radius:50px}
+    .hero{position:relative;isolation:isolate;min-height:max(690px,89svh);display:flex;align-items:center;overflow:hidden;background:var(--ocean);color:var(--ivory)}
+    .hero-image{position:absolute;z-index:-3;inset:-2%;transform:translate3d(var(--px,0),var(--py,0),0) scale(1.04);transition:transform .3s ease-out}.hero-image img{width:100%;height:100%;display:block;object-fit:cover;object-position:45% 50%}
+    .hero-video{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;opacity:.3;pointer-events:none;}
+    @media(prefers-reduced-motion:reduce){.hero-video{display:none}}
+    .hero:before{content:"";position:absolute;z-index:-2;inset:0;background:linear-gradient(90deg,#071e2b17 0%,#071e2b55 35%,#071e2bd7 66%,#071e2bf2 100%),linear-gradient(0deg,#071e2b 0%,transparent 32%,#071e2b70 100%)}
+    .hero:after{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;opacity:.11;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.2'/%3E%3C/svg%3E")}
+    .hero-content{width:min(610px,51vw);margin-left:auto;margin-right:clamp(28px,9vw,145px);padding:120px 0 100px}
+    .eyebrow,.tag{font:500 10px var(--mono);letter-spacing:1.65px;text-transform:uppercase}.eyebrow{display:flex;align-items:center;gap:10px;color:var(--glass);animation:rise .8s .14s both}.eyebrow:before{content:"";width:26px;height:1px;background:var(--coral)}
+    h1{font:600 clamp(52px,7.1vw,96px)/.98 var(--display);letter-spacing:-.075em;margin:24px 0 20px;animation:textPop .55s .2s both}h1 em{font-style:normal;color:var(--glass)}
+    .hero-copy{max-width:490px;color:#d4e0de;font-size:15px;line-height:1.8;animation:rise .8s .36s both}.hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:27px;animation:rise .8s .46s both}
+    .btn{display:inline-flex;align-items:center;gap:10px;border-radius:99px;padding:14px 19px;text-decoration:none;font-size:11px;font-weight:700;transition:transform .25s,background .25s,color .25s,box-shadow .25s}.btn-main{color:var(--ocean);background:var(--glass)}.btn-main:hover{background:#b8f1e7;box-shadow:0 12px 28px #8de0d033}.btn-quiet{border:1px solid #ffffff4a;color:var(--ivory)}.btn-quiet:hover{border-color:var(--glass);color:var(--glass);transform:translateY(-2px)}
+    .bounce-top{-webkit-animation:bounce-top 0.9s both;animation:bounce-top 0.9s both}
+    @-webkit-keyframes bounce-top{0%{-webkit-transform:translateY(-45px);transform:translateY(-45px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{-webkit-transform:translateY(-24px);transform:translateY(-24px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}65%{-webkit-transform:translateY(-12px);transform:translateY(-12px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}82%{-webkit-transform:translateY(-6px);transform:translateY(-6px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}93%{-webkit-transform:translateY(-4px);transform:translateY(-4px);-webkit-animation-timing-function:ease-in;animation-timing-function:ease-in}25%,55%,75%,87%,98%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}100%{-webkit-transform:translateY(0);transform:translateY(0);-webkit-animation-timing-function:ease-out;animation-timing-function:ease-out}}
+    @keyframes bounce-top{0%{transform:translateY(-45px);animation-timing-function:ease-in;opacity:1}24%{opacity:1}40%{transform:translateY(-24px);animation-timing-function:ease-in}65%{transform:translateY(-12px);animation-timing-function:ease-in}82%{transform:translateY(-6px);animation-timing-function:ease-in}93%{transform:translateY(-4px);animation-timing-function:ease-in}25%,55%,75%,87%,98%{transform:translateY(0);animation-timing-function:ease-out}100%{transform:translateY(0);animation-timing-function:ease-out}}
+    .hero-meta{margin-top:28px;color:#cfdddaaa;font:9px var(--mono);letter-spacing:1px;text-transform:uppercase}.map-caption{position:absolute;left:clamp(22px,6vw,90px);bottom:37px;color:#e8f0efb8;font:9px var(--mono);letter-spacing:1.2px;text-transform:uppercase}.map-caption:before{content:"";display:inline-block;width:6px;height:6px;margin-right:9px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 5px #ff775d25}
+    .hero-marker{position:absolute;width:12px;height:12px;padding:0;border:1px solid white;border-radius:50%;background:var(--coral);box-shadow:0 0 0 5px #ff775d32,0 0 20px #ff775d99;animation:pulse 3s infinite;cursor:help}.hero-marker:focus-visible,.hero-marker:hover{outline:2px solid white;outline-offset:4px}.hero-marker span{position:absolute;left:20px;top:50%;transform:translateY(-50%);opacity:0;white-space:nowrap;padding:7px 9px;color:white;background:#071e2be8;border:1px solid #ffffff2b;font:9px var(--mono);transition:opacity .2s}.hero-marker:hover span,.hero-marker:focus-visible span{opacity:1}.m-east{left:25%;top:42%}.m-island{left:69%;top:26%}
+    .scroll-hint{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);color:#d6e1dfa6;text-decoration:none;font:9px var(--mono);letter-spacing:1.2px;text-transform:uppercase;display:flex;align-items:center;gap:10px}.scroll-hint i{height:27px;width:1px;background:var(--glass);animation:scrollPulse 1.7s infinite}
+    .wrap{width:min(1160px,calc(100% - 48px));margin:auto}.section{padding:clamp(67px,9vw,118px) 0}.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:35px}.tag{color:var(--teal)}h2{margin:13px 0 0;color:var(--ink);font:600 clamp(35px,4.4vw,58px)/1.06 var(--display);letter-spacing:-.065em}.section-head p{max-width:430px;margin:0 0 3px;color:var(--muted);font-size:13px;line-height:1.75}
+    .risk-lens{background:var(--ivory)}.lens-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.lens-card{position:relative;min-height:224px;padding:22px;border:1px solid var(--line);background:#fbfaf5;transition:transform .3s,box-shadow .3s,border-color .3s}.lens-card:hover{transform:translateY(-5px);border-color:#8cb9aa;box-shadow:0 16px 34px #102c3810}.lens-number{color:var(--coral);font:10px var(--mono);letter-spacing:1px}.lens-card h3{margin:32px 0 10px;font:600 19px var(--display);letter-spacing:-.4px}.lens-card p{margin:0;color:#617579;font-size:12px;line-height:1.7}.lens-note{margin-top:16px;padding:13px 16px;border-left:2px solid var(--coral);background:#eeeae0;color:#53696c;font-size:11px;line-height:1.65}
+    .geography{position:relative;overflow:hidden;background:var(--ocean);color:var(--ivory)}.geography:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 84% 25%,#0d667044,transparent 40%),linear-gradient(120deg,transparent 20%,#8de0d00a 50%,transparent 70%);pointer-events:none}.geography .wrap{position:relative}.geography h2{color:var(--ivory)}.geography .section-head p{color:#c2d1d0}.geo-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:18px}.geo-card{border:1px solid #ffffff26;background:#ffffff08;padding:27px}.geo-card .tag{color:var(--glass)}.geo-card h3{margin:12px 0;font:600 22px var(--display);letter-spacing:-.5px}.geo-card p{margin:0;color:#c5d4d2;font-size:13px;line-height:1.75}.zone-list{margin-top:18px;display:grid;gap:10px}.zone{display:flex;align-items:center;gap:11px;padding:12px 13px;border:1px solid #ffffff1d;background:#ffffff08;color:#ebf1ef;font-size:12px}.zone b{font:500 10px var(--mono);color:var(--glass)}.zone:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--coral);box-shadow:0 0 10px #ff775d80}.lead-time{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:19px}.time-cell{padding:15px;background:#ffffff0a;border-top:1px solid #8de0d04f}.time-cell strong{display:block;color:var(--glass);font:600 25px var(--display)}.time-cell span{display:block;margin-top:6px;color:#c4d3d0;font-size:10px;line-height:1.5}.geo-caution{margin-top:14px!important;color:#9fb4b3!important;font-size:10px!important}
+    .history{background:#e9eee6}.history-grid{display:grid;grid-template-columns:.72fr 1.28fr;gap:clamp(30px,7vw,90px);align-items:center}.year-card{padding:32px;background:var(--teal);color:white;position:relative;overflow:hidden}.year-card:after{content:"";position:absolute;width:200px;height:200px;right:-88px;bottom:-120px;border:1px solid #ffffff42;border-radius:50%;box-shadow:0 0 0 22px #ffffff09,0 0 0 44px #ffffff09}.year-card .year{font:600 clamp(58px,8vw,94px)/.95 var(--display);letter-spacing:-.08em;color:var(--glass)}.year-card p{max-width:230px;margin:17px 0 0;font-size:12px;line-height:1.6;color:#e2f0ed}.history-copy h2{font-size:clamp(33px,4vw,51px)}.history-copy p{max-width:610px;color:#52686d;font-size:14px;line-height:1.85}.source-inline{color:var(--teal);text-underline-offset:3px;font-size:11px}
+    .drivers{background:var(--ivory)}.driver-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}.driver{padding:24px;border-top:2px solid var(--teal);background:#fbfaf5;min-height:205px;transition:transform .3s,box-shadow .3s}.driver:hover{transform:translateY(-4px);box-shadow:0 14px 30px #102c3810}.driver-index{color:var(--coral);font:10px var(--mono)}.driver h3{margin:24px 0 9px;font:600 17px var(--display)}.driver p{margin:0;color:#617579;font-size:12px;line-height:1.7}
+    .warning-section{background:#dbe9e2}.warning-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.warning-card{padding:26px;background:var(--ocean);color:var(--ivory)}.warning-card .tag{color:var(--glass)}.warning-card h3{margin:13px 0 10px;font:600 22px var(--display)}.warning-card p{margin:0;color:#c5d4d2;font-size:12px;line-height:1.75}.signs{display:grid;gap:8px;margin-top:16px}.sign{padding:10px 12px;border-left:2px solid var(--coral);background:#ffffff0a;color:#e7efed;font-size:11px}.sop-row{display:grid;grid-template-columns:84px 1fr;gap:13px;padding:12px 0;border-top:1px solid #ffffff20}.sop-row strong{font:500 10px var(--mono);letter-spacing:.7px;color:var(--glass)}.sop-row span{color:#d3dfdd;font-size:11px;line-height:1.6}.warning-source{display:block;margin-top:15px;color:var(--glass);font-size:10px;text-underline-offset:3px}
+    .ready{padding:45px 0 78px;background:var(--ivory)}.ready-panel{display:flex;justify-content:space-between;align-items:center;gap:28px;padding:29px 32px;background:#edf0e7;border:1px solid #cfdbd1}.ready-panel h2{font-size:clamp(27px,3.4vw,40px);margin:10px 0}.ready-panel p{max-width:570px;margin:0;color:#5d7277;font-size:12px;line-height:1.7}.ready-panel a{flex:none;padding:13px 17px;border-radius:99px;color:white;background:var(--teal);font-size:11px;text-decoration:none;transition:transform .25s,background .25s}.ready-panel a:hover{transform:translateY(-3px);background:#084d56}
+    .sources{padding:24px 0;background:#e7ebe2}.sources-row{display:flex;justify-content:space-between;align-items:center;gap:20px}.sources-label{margin:0;color:#50676b;font:10px/1.6 var(--mono);letter-spacing:.7px}.source-links{display:flex;flex-wrap:wrap;gap:10px 17px}.source-links a{color:var(--teal);font-size:10px;text-underline-offset:3px}
+    footer{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:22px max(24px,calc((100% - 1160px)/2));color:#c3d0ce;background:var(--ocean);font-size:10px}footer strong{color:var(--glass);font:500 10px var(--mono);letter-spacing:1px}footer a{color:var(--glass);text-underline-offset:3px}
+    .js .reveal{opacity:0;transform:translateY(24px);transition:opacity .72s ease,transform .72s cubic-bezier(.2,.7,.2,1)}.js .reveal.visible{opacity:1;transform:none}.stagger>*{transition-delay:calc(var(--i,0)*100ms)}
+    @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}@keyframes textPop{from{opacity:0;filter:blur(5px);transform:translateY(30px) scale(.96)}to{opacity:1;filter:blur(0);transform:none}}@keyframes pulse{0%,100%{box-shadow:0 0 0 4px #ff775d32,0 0 18px #ff775d77}55%{box-shadow:0 0 0 10px #ff775d00,0 0 25px #ff775d55}}@keyframes scrollPulse{0%{transform:scaleY(.45);transform-origin:top;opacity:.4}50%{transform:scaleY(1);transform-origin:top;opacity:1}100%{transform:scaleY(.3);transform-origin:top;opacity:.4}}
+    @media(max-width:860px){.nav{padding:0 23px}.hero{min-height:780px}.hero-content{width:min(620px,68vw);margin-right:6vw}.hero:before{background:linear-gradient(90deg,#071e2b38 0%,#071e2b80 35%,#071e2be8 68%,#071e2bf5 100%),linear-gradient(0deg,#071e2b 0%,transparent 34%,#071e2b66 100%)}.lens-grid{grid-template-columns:repeat(2,1fr)}.geo-grid{grid-template-columns:1fr 1fr}.history-grid{grid-template-columns:.8fr 1.2fr}}
+    @media(max-width:620px){html{scroll-padding-top:62px}.nav{height:64px;padding:0 16px}.nav.scrolled{height:60px}.brand-name{font-size:9px}.brand-icon{width:30px;height:30px}.nav-links{gap:10px}.nav-links a{font-size:9px;white-space:nowrap}.hero{min-height:max(770px,100svh);align-items:end}.hero-image img{object-position:35% 50%}.hero:before{background:linear-gradient(0deg,#071e2bf7 0%,#071e2bd9 35%,#071e2b42 78%,#071e2b88 100%)}.hero-content{width:auto;margin:0;padding:0 22px 122px}.eyebrow{font-size:9px}h1{font-size:clamp(48px,12vw,72px);margin:19px 0 16px}.hero-copy{font-size:13px}.hero-actions{gap:10px;margin-top:21px}.btn{padding:12px 14px;font-size:10px}.hero-meta{font-size:8px}.map-caption{left:22px;bottom:73px;font-size:8px}.m-east{left:20%;top:36%}.m-island{left:68%;top:23%}.scroll-hint{left:auto;right:20px;bottom:28px;transform:none;font-size:8px}.wrap{width:calc(100% - 42px)}.section{padding:69px 0}.section-head{display:block;margin-bottom:25px}.section-head p{margin-top:13px}.lens-grid{gap:9px}.lens-card{min-height:210px;padding:17px}.lens-card h3{margin-top:26px;font-size:17px}.lens-card p{font-size:11px}.lens-note{font-size:10px}.geo-grid,.history-grid,.warning-grid{grid-template-columns:1fr}.geo-card{padding:22px}.history-grid{gap:24px}.year-card{padding:26px}.driver-grid{grid-template-columns:1fr}.driver{min-height:0;padding:20px}.driver h3{margin:18px 0 7px}.ready{padding:30px 0 60px}.ready-panel{display:block;padding:23px}.ready-panel a{display:inline-flex;margin-top:18px}.sources-row{display:block}.source-links{margin-top:14px}.source-links a{font-size:9px}footer{align-items:flex-start;flex-direction:column;padding:20px 22px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="brand" href="index.html" aria-label="Coastline India home">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M3 14c2-2 4-2 6 0s4 2 6 0 4-2 6 0M3 19c2-2 4-2 6 0s4 2 6 0 4-2 6 0M12 3v7m-3-3 3 3 3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      <span class="brand-name">COASTLINE <i>/</i> INDIA</span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#framework" class="active">The Risk</a><a href="prepared.html">Be Prepared</a><a href="science.html">The Science</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-image"><img src="assets/coastline-hero.png" alt="Illustrative aerial view of India's coastline and the Indian Ocean"></div>
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" aria-hidden="true"><source src="risk-intro.mp4" type="video/mp4"></video>
+      <button class="hero-marker m-east" type="button" aria-label="Illustrative marker: India's eastern coastline"><span aria-hidden="true">EASTERN COAST</span></button>
+      <button class="hero-marker m-island" type="button" aria-label="Illustrative marker: Andaman Sea"><span aria-hidden="true">ANDAMAN SEA</span></button>
+      <div class="hero-content">
+        <div class="eyebrow">Field note 01 <span>·</span> Vulnerability assessment</div>
+        <h1 id="page-title">Risk is a story<br>of <em>place.</em></h1>
+        <p class="hero-copy">A tsunami is a natural hazard. Its impact depends on where water may reach, who and what is exposed, and how prepared a community is to act.</p>
+        <div class="hero-actions">
+          <a class="btn btn-main bounce-top" href="#framework">Explore the risk <span aria-hidden="true">↓</span></a>
+          <a class="btn btn-quiet" href="#warning">How warnings work ↗</a>
+        </div>
+        <div class="hero-meta">INDIAN OCEAN · COASTAL EXPOSURE · COMMUNITY READINESS</div>
+      </div>
+      <div class="map-caption">Illustrative coastline · not an official hazard map</div>
+      <a href="#framework" class="scroll-hint"><i aria-hidden="true"></i> Follow the coastline</a>
+    </section>
+
+    <section class="risk-lens section" id="framework">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="tag">01 / A practical lens</div><h2>Four questions help us understand risk.</h2></div>
+          <p>Risk assessment looks beyond the hazard itself. It asks what could happen, who and what is in its path, and what strengths can help limit harm.</p>
+        </div>
+        <div class="lens-grid stagger">
+          <article class="lens-card reveal"><div class="lens-number">01 — HAZARD</div><h3>What could happen?</h3><p>The potential tsunami and its characteristics, including its source and how it may travel toward a coast.</p></article>
+          <article class="lens-card reveal"><div class="lens-number">02 — EXPOSURE</div><h3>Who and what is there?</h3><p>People, homes, roads, services, and livelihoods located in areas that could be affected.</p></article>
+          <article class="lens-card reveal"><div class="lens-number">03 — VULNERABILITY</div><h3>What makes harm more likely?</h3><p>Physical, social, economic, and environmental conditions that can increase susceptibility to impacts.</p></article>
+          <article class="lens-card reveal"><div class="lens-number">04 — CAPACITY</div><h3>What helps people respond?</h3><p>Knowledge, resources, trusted alerts, evacuation routes, and community plans that support action.</p></article>
+        </div>
+        <div class="lens-note reveal"><strong>Keep in mind:</strong> this framework helps organize questions. It is not a numerical risk score, and it cannot replace local hazard maps or official advice.</div>
+      </div>
+    </section>
+
+    <section class="geography section" id="india">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><div class="tag">02 / India's Indian Ocean setting</div><h2>Distance changes the time to respond.</h2></div>
+          <p>INCOIS monitors tsunami-generating source regions and combines earthquake information, ocean observations, and model scenarios to assess threats to Indian coasts.</p>
+        </div>
+        <div class="geo-grid stagger">
+          <article class="geo-card reveal">
+            <div class="tag">SOURCE REGIONS</div>
+            <h3>More than one direction matters.</h3>
+            <p>INCOIS research identifies the Andaman–Sumatra–Java and Makran subduction zones in its Indian Ocean source studies. Which coast is affected depends on the event and local seafloor and coastal geography.</p>
+            <div class="zone-list"><div class="zone"><b>01</b> Andaman–Sumatra–Java</div><div class="zone"><b>02</b> Makran</div></div>
+          </article>
+          <article class="geo-card reveal">
+            <div class="tag">RESPONSE TIME · BROAD ESTIMATES</div>
+            <h3>Nearby sources can mean less time.</h3>
+            <div class="lead-time">
+              <div class="time-cell"><strong>10–20 min</strong><span>Approximate response time cited for near-source areas such as Andaman &amp; Nicobar</span></div>
+              <div class="time-cell"><strong>Longer</strong><span>Some mainland coasts may have a few hours, depending on the source and event</span></div>
+            </div>
+            <p class="geo-caution">These are general estimates from INCOIS, not arrival-time forecasts for a particular place or event. Follow current official bulletins and local instructions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="history section" id="case-study">
+      <div class="wrap history-grid">
+        <div class="year-card reveal"><div class="tag" style="color:#c5f4e8">A HISTORICAL SNAPSHOT</div><div class="year">2004</div><p>The Indian Ocean tsunami affected communities across several Indian states and union territories.</p></div>
+        <div class="history-copy reveal"><div class="tag">03 / WHAT THE RECORD SHOWS</div><h2>One event. A wide footprint.</h2><p>A Government of India report published in 2005 estimated that 27.92 lakh people were affected across 1,089 villages in the impacted states and union territories. The event demonstrated that tsunami impacts can reach island communities and mainland coasts—and disrupt homes, services, and livelihoods.</p><a class="source-inline" href="https://archivepmo.nic.in/drmanmohansingh/reports_details.php?nodeid=25" target="_blank" rel="noopener noreferrer">Read the Government of India report ↗</a></div>
+      </div>
+    </section>
+
+    <section class="drivers section">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="tag">04 / What shapes vulnerability?</div><h2>Look at the coast—and the community.</h2></div><p>These are factors an assessment should investigate. Their importance varies from place to place.</p></div>
+        <div class="driver-grid stagger">
+          <article class="driver reveal"><div class="driver-index">FACTOR 01</div><h3>Elevation &amp; coastal shape</h3><p>Local topography and bathymetry influence how tsunami water moves and where inundation may occur.</p></article>
+          <article class="driver reveal"><div class="driver-index">FACTOR 02</div><h3>People &amp; essential services</h3><p>Homes, schools, roads, ports, health services, and livelihoods within mapped hazard zones contribute to exposure.</p></article>
+          <article class="driver reveal"><div class="driver-index">FACTOR 03</div><h3>Routes, access &amp; warnings</h3><p>Clear evacuation maps, accessible alerts, safe destinations, and practiced plans can strengthen response capacity.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="warning-section section" id="warning">
+      <div class="wrap">
+        <div class="section-head reveal"><div><div class="tag">05 / From observation to action</div><h2>A warning matters when people can act on it.</h2></div><p>India's early warning system combines monitoring and modelling. Local authorities guide protective action for their communities.</p></div>
+        <div class="warning-grid">
+          <article class="warning-card reveal"><div class="tag">NATURAL WARNING SIGNS</div><h3>Know what the ocean may tell you.</h3><p>Near the coast, natural signs may be your first warning. Do not wait for an official message if you experience them.</p><div class="signs"><div class="sign">Strong or long earthquake shaking</div><div class="sign">A loud roar from the ocean</div><div class="sign">Unusual sea-level change or sudden retreat</div></div><a class="warning-source" href="https://www.tsunami.gov/?page=tsunamiFAQ" target="_blank" rel="noopener noreferrer">U.S. Tsunami Warning Centers · Natural warning signs ↗</a></article>
+          <article class="warning-card reveal"><div class="tag">INDIA'S OFFICIAL SOP</div><h3>Threat level guides the response.</h3><div class="sop-row"><strong>WARNING</strong><span>Move inland toward higher ground.</span></div><div class="sop-row"><strong>ALERT</strong><span>Avoid beaches and low-lying coastal areas.</span></div><div class="sop-row"><strong>ALL CLEAR</strong><span>Wait for local authorities to determine when it is safe to return.</span></div><a class="warning-source" href="https://tsunami.incois.gov.in/TEWS/dsssop.jsp" target="_blank" rel="noopener noreferrer">INCOIS · Threat levels and actions ↗</a></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ready">
+      <div class="wrap ready-panel reveal">
+        <div><div class="tag">NEXT / COMMUNITY READINESS</div><h2>Preparedness is built together.</h2><p>Hazard maps, evacuation routes, public information, reliable alert channels, and community practice all help turn risk knowledge into readiness. “Tsunami Ready” recognition reflects preparedness measures; it does not mean a community is tsunami-proof.</p></div>
+        <a href="https://tsunami.ioc.unesco.org/en/tsunami-ready" target="_blank" rel="noopener noreferrer">Explore UNESCO-IOC guidance ↗</a>
+      </div>
+    </section>
+
+    <section class="sources"><div class="wrap sources-row"><p class="sources-label">SOURCES &amp; FURTHER READING<br>Claims on this page link to their source.</p><div class="source-links"><a href="https://tsunami.incois.gov.in/TEWS/about.jsp" target="_blank" rel="noopener noreferrer">INCOIS · System overview</a><a href="https://www.incois.gov.in/documents/Reports/AnnualReports/AR_2022_20250701121638.pdf" target="_blank" rel="noopener noreferrer">INCOIS · Annual report</a><a href="https://tsunami.ioc.unesco.org/en/tsunami-ready" target="_blank" rel="noopener noreferrer">UNESCO-IOC · Tsunami Ready</a><a href="https://www.undrr.org/implementing-sendai-framework/what-sendai-framework" target="_blank" rel="noopener noreferrer">UNDRR · Understanding risk</a></div></div></section>
+  </main>
+  <footer><strong>COASTLINE / INDIA</strong><span>Student chemistry &amp; earth-science project · Educational overview only</span><a href="index.html">Return to homepage ↑</a></footer>
+
+  <script>
+    (function () {
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.documentElement.classList.add("js");
+      var progress = document.getElementById("scroll-progress");
+      var nav = document.querySelector(".nav");
+      var ticking = false;
+      function updateScroll() {
+        var maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+        var percent = maxScroll > 0 ? window.scrollY / maxScroll * 100 : 0;
+        progress.style.width = percent + "%";
+        nav.classList.toggle("scrolled", window.scrollY > 24);
+        ticking = false;
+      }
+      window.addEventListener("scroll", function () {
+        if (!ticking) { window.requestAnimationFrame(updateScroll); ticking = true; }
+      }, { passive: true });
+      updateScroll();
+
+      var revealItems = document.querySelectorAll(".reveal");
+      document.querySelectorAll(".stagger").forEach(function (group) {
+        Array.prototype.forEach.call(group.children, function (child, index) {
+          child.style.setProperty("--i", index);
+        });
+      });
+      if (!reduceMotion && "IntersectionObserver" in window) {
+        var observer = new IntersectionObserver(function (entries, obs) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) { entry.target.classList.add("visible"); obs.unobserve(entry.target); }
+          });
+        }, { threshold: 0.13 });
+        revealItems.forEach(function (item) { observer.observe(item); });
+      } else {
+        revealItems.forEach(function (item) { item.classList.add("visible"); });
+      }
+
+      var hero = document.querySelector(".hero");
+      if (!reduceMotion && window.matchMedia("(pointer: fine)").matches) {
+        hero.addEventListener("pointermove", function (event) {
+          var rect = hero.getBoundingClientRect();
+          var x = (event.clientX - rect.left) / rect.width - 0.5;
+          var y = (event.clientY - rect.top) / rect.height - 0.5;
+          hero.style.setProperty("--px", (x * -8).toFixed(1) + "px");
+          hero.style.setProperty("--py", (y * -6).toFixed(1) + "px");
+        });
+        hero.addEventListener("pointerleave", function () {
+          hero.style.setProperty("--px", "0px");
+          hero.style.setProperty("--py", "0px");
+        });
+      }
+    }());
+  </script>
+</body>
+</html>
+
+
+
